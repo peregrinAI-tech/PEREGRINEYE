@@ -12,7 +12,7 @@ load_dotenv
 import glob
 
 import google.generativeai as genai
-genai.configure(api_key="your-api-key-here")
+genai.configure(api_key="your-api-key")
 model = genai.GenerativeModel('models/gemini-pro-vision')
 
 button = Button()
