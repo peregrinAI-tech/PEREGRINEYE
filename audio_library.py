@@ -1,3 +1,5 @@
+#Never was able to make the audio library work
+# The file that works to record but never implemented is the adaVoiceTest.py
 import pyaudio
 import wave
 from button_library import Button
