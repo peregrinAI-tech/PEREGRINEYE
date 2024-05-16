@@ -1,9 +1,10 @@
-
+#Main file for the PeregrinEye project , just be sure that you have all the libraries installed
+# and run with python main.py
 from button_library import Button
 import subprocess
 import os
 from PIL import Image
-from audio_library import AudioRecorder
+from audio_library import AudioRecorder #It is not being used , never got able to make it work
 from gtts import gTTS
 from pygame import mixer
 from dotenv import load_dotenv
@@ -39,15 +40,12 @@ user_input = f"{photo_directory}/{photo_name}"
 #mixer.music.set_volume(0.05)
 
 
-#We create our speak function 
+#We create our speak function -- For whatever reason th quality of the audio is not the best
+#as to when i create a wav and reproduce it with aplay but I just could not save a
+# wav with this library
 def save_to_Audio(text):
     tts = gTTS(text=text, lang='en', slow=False)
     tts.save(f'audios/response{i}.mp3')
-    #mixer.music.load("audios/response.mp3")
-    #mixer.music.play()
-    #while mixer.music.get_busy():
-    #subprocess.Popen(['aplay','response.wav'])
-    #	time.sleep(1)
     os.system(f'mpg321 audios/response{i}.mp3')
 
 #We define the prompt for our eyeAgent
@@ -65,8 +63,10 @@ while True:
 
         #recorder.record('audios/instructions.wav')
 
-        # Aquí puedes hacer lo que quieras cuando el botón esté presionado
-        
+        # Here we take a picture and save it , for whatever reason a lot of prompt appears
+        # in the console, probably all the processing of the image, it does not break anything 
+        # but it is annoying, if we could ommit this and just take the picture quicker it would be
+        # better
         subprocess.run(['libcamera-jpeg', '-o', user_input.lower()+f'{i}.jpg', '-t', '2000'])
         print(f"Picture {i} taken successfully.")
         # Opens Image taken
@@ -76,7 +76,7 @@ while True:
         # We rotate the image 180 degrees, this is because the camera is upside down
         imagen_rotada = flipped_image.rotate(180)
 
-        # Guarda la imagen rotada
+        # Saves rotated image
         imagen_rotada.save(user_input.lower()+f'{i}.jpg')
         print(f"Picture {i} transformed successfully.")
         i = i + 1
@@ -86,6 +86,6 @@ while True:
         response = model.generate_content([prompt, imagen_rotada])
         print(response.text)
         save_to_Audio(response.text)
-        # Aquí puedes hacer lo que quieras cuando el botón sea liberado
+        
 
     button.wait()

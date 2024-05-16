@@ -1,3 +1,7 @@
+#Also not using this library but is a library that turns one of 3 leds , I would
+#Like you to use this in order to give feedback to the user when the system is
+#listening to the user or when it is processing the information
+# Or when is recording
 import time
 import board
 import adafruit_dotstar

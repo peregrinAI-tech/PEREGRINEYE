@@ -1,3 +1,7 @@
+#This is the code for the voice recording and playback test. It will record audio from the microphone and save it to a .wav file. It will then play the audio back to the user. 
+# This code is used to test the microphone and speaker functionality of the AdaVoice system.
+# This output is later supposed to be translated to text and then processed by openai but I never got to that point
+
 import pyaudio
 import wave
 
